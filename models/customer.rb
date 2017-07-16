@@ -1,4 +1,5 @@
 require_relative('../db/sql_runner')
+require('pry')
 
 class Customer
 
@@ -33,6 +34,32 @@ class Customer
   def what_film_booked()
     sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = #{@id};"
     return Film.map_items(sql)
+  end
+
+  def buy_ticket
+    sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = #{id};"
+    price = SqlRunner.run(sql)[0]['price'].to_i
+    # binding.pry
+    @funds = @funds - price
+    update
+
+  end
+
+  # def buy_ticket
+  #   sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = #{@id};"
+  #   # prices = SqlRunner.run(sql)[0]['price'].to_i
+  #   films_prices = SqlRunner.run(sql)
+  #   prices = films_prices.map {|price| price['price'].to_i}
+  #   prices.each{|price| @funds -= price}
+  #   # prices = films_prices.each {|price| sum += price['price'].to_i}
+  #   # @funds = @funds - price
+  #   binding.pry
+  # end
+
+  def tickets_bought
+    sql = "SELECT tickets.* FROM tickets INNER JOIN customers ON tickets.customer_id = #{id};"
+    tickets = SqlRunner.run(sql)
+    tickets.count()
   end
 
   def self.all()
