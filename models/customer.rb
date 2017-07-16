@@ -24,6 +24,11 @@ class Customer
     return self.map_items(sql)
   end
 
+  def self.delete_all()
+    sql = "DELETE FROM customers"
+    SqlRunner.run(sql)
+  end
+
   def self.map_items(sql)
     customers = SqlRunner.run(sql)
     result = customers.map{|customer| Customer.new(customer)}

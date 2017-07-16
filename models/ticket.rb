@@ -22,6 +22,11 @@ class Ticket
     return self.map_items(sql)
   end
 
+  def self.delete_all()
+    sql = "DELETE FROM tickets;"
+    SqlRunner.run(sql)
+  end
+
   def self.map_items(sql)
     tickets = SqlRunner.run(sql)
     result = tickets.map{|ticket| Ticket.new(ticket)}

@@ -4,6 +4,10 @@ require_relative('../models/ticket')
 
 require('pry')
 
+Film.delete_all
+Customer.delete_all
+Ticket.delete_all
+
 film1 = Film.new({'title' => 'There will be blood', 'price' => 9})
 film1.save()
 
