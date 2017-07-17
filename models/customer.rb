@@ -42,7 +42,6 @@ class Customer
     # binding.pry
     @funds = @funds - price
     update
-
   end
 
   # def buy_ticket
@@ -62,10 +61,6 @@ class Customer
     tickets.count()
   end
 
-  # def customers_to_film
-  #   sql = "SELECT customers.* FROM customers INNER JOIN tickets ON tickets.customer_id = "
-  # end
-
   def self.all()
     sql = "SELECT * FROM customers;"
     return self.map_items(sql)
@@ -81,6 +76,5 @@ class Customer
     result = customers.map{|customer| Customer.new(customer)}
     return result
   end
-
 
 end
